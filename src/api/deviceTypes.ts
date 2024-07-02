@@ -11,6 +11,7 @@ export enum DeviceName {
   Core200S = '200S',
   Vital100S  = 'V102S',
   Vital200S = 'V201S',
+  EverestAir = 'EverestAir'
 }
 
 export enum HumidifierDeviceName {
@@ -28,7 +29,7 @@ export interface DeviceType {
   hasPM25: boolean;
 }
 
-export type DeviceCategory = 'Core' | 'Vital';
+export type DeviceCategory = 'Core' | 'Vital' | 'EverestAir';
 
 export type HumidifierDeviceType = Omit<DeviceType, 'hasPM25' | 'hasAirQuality'> & { isHumidifier: true };
 
@@ -71,6 +72,15 @@ const deviceTypes: DeviceType[] = [
     isValid: (input: string) =>
       input.includes(DeviceName.Vital100S) ||
       input.includes(DeviceName.Vital200S),
+    hasAirQuality: true,
+    hasAutoMode: true,
+    speedMinStep: 25,
+    speedLevels: 4,
+    hasPM25: true
+  },
+  {
+    isValid: (input: string) =>
+      input.includes(DeviceName.EverestAir),
     hasAirQuality: true,
     hasAutoMode: true,
     speedMinStep: 25,

@@ -87,10 +87,11 @@ export default class VeSyncFan implements VeSyncGeneric {
   ) {
     this.deviceType = deviceTypes.find(({ isValid }) => isValid(this.model))!;
     this.deviceCategory = this.model.includes('V') ? 'Vital' : 'Core';
+    this.deviceCategory = this.model.includes('A') ? 'EverestAir' : 'Core';
   }
 
   public async setChildLock(lock: boolean): Promise<boolean> {
-    const data = this.deviceCategory === 'Vital' ? {
+    const data = (this.deviceCategory === 'Vital' || this.deviceCategory === 'EverestAir') ? {
       childLockSwitch: lock ? 1 : 0
     } : {
       child_lock: lock,
@@ -105,7 +106,7 @@ export default class VeSyncFan implements VeSyncGeneric {
   }
 
   public async setPower(power: boolean): Promise<boolean> {
-    const data = this.deviceCategory === 'Vital' ? {
+    const data = (this.deviceCategory === 'Vital' || this.deviceCategory === 'EverestAir') ? {
       powerSwitch: power ? 1 : 0,
       switchIdx: 0
     } : {
@@ -129,7 +130,7 @@ export default class VeSyncFan implements VeSyncGeneric {
       return false;
     }
 
-    const data = this.deviceCategory === 'Vital' ? {
+    const data = (this.deviceCategory === 'Vital' || this.deviceCategory === 'EverestAir') ? {
       workMode: mode.toString()
     } : {
       mode: mode.toString()
@@ -148,7 +149,7 @@ export default class VeSyncFan implements VeSyncGeneric {
       return false;
     }
 
-    const data = this.deviceCategory === 'Vital' ? {
+    const data = (this.deviceCategory === 'Vital' || this.deviceCategory === 'EverestAir') ? {
       manualSpeedLevel: speed,
       switchIdx: 0,
       type: 'wind'
@@ -168,7 +169,7 @@ export default class VeSyncFan implements VeSyncGeneric {
   }
 
   public async setDisplay(display: boolean): Promise<boolean> {
-    const data = this.deviceCategory === 'Vital' ? {
+    const data = (this.deviceCategory === 'Vital' || this.deviceCategory === 'EverestAir') ? {
       screenSwitch: display ? 1 : 0
     } : {
       state: display,
